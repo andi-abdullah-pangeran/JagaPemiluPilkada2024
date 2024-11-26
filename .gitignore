@@ -1,0 +1,4 @@
+.idea
+deploy/docker/clickhouse/chdata
+deploy/docker/superset/data
+
