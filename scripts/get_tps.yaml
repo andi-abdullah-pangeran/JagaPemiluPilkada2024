@@ -37,6 +37,9 @@ processor_resources:
         - http:
             url: https://sirekappilkada-obj-data.kpu.go.id/wilayah/pilkada/pkwkp/${!meta("kode_wilayah")}.json
             verb: GET
+            headers:
+              "accept": "application/json, text/plain, */*"
+              "referer": "https://pilkada2024.kpu.go.id/"
         - mapping:
             root = this.sort_by(pair -> pair.kode)
       result_map: |-

@@ -37,6 +37,9 @@ processor_resources:
         - http:
             url: ${!meta("url_link")}
             verb: GET
+            headers:
+              "accept": "application/json, text/plain, */*"
+              "referer": "https://pilkada2024.kpu.go.id/"
       result_map: |-
         root.result = this
         root.json_url = @.url_link        

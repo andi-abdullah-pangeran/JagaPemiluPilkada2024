@@ -41,6 +41,9 @@ processor_resources:
         - http:
             url: https://sirekappilkada-obj-data.kpu.go.id/wilayah/pilkada/pkwkp/${!meta("kode_wilayah")}.json
             verb: GET
+            headers:
+              "accept": "application/json, text/plain, */*"
+              "referer": "https://pilkada2024.kpu.go.id/"
         - mapping:
             root = this.sort_by(pair -> pair.kode)
       result_map: |-
@@ -72,7 +75,7 @@ processor_resources:
           format: "json_array"
       - mapping: |-
           meta kode_wilayah = this.kode_prov + "/" + this.kode_cab + "/" + this.kode_kec + "/" + this.kode_kel
-          meta nama_file = "master/wilaya/" + this.nama_prov + ".txt"
+          meta nama_file = "master/wilayah/" + this.nama_prov + ".txt"
 
 output_resources:
   - label: wilayah

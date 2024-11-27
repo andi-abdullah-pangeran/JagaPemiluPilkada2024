@@ -19,7 +19,9 @@ input_resources:
     http_client:
       url: https://sirekappilkada-obj-data.kpu.go.id/wilayah/pilkada/pkwkp/0.json
       verb: GET
-      headers: { }
+      headers:
+        "accept": "application/json, text/plain, */*"
+        "referer": "https://pilkada2024.kpu.go.id/"
       rate_limit: "" # No default (optional)
       timeout: 5s
       payload: "" # No default (optional)
