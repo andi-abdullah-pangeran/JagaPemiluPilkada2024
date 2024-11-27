@@ -1,0 +1,168 @@
+dashboard_title: Pilkada Jateng
+description: null
+css: ''
+slug: null
+certified_by: ''
+certification_details: ''
+published: false
+uuid: 4e06db8d-e3af-4837-8c31-0161b427c910
+position:
+  CHART-explore-10-1:
+    children: []
+    id: CHART-explore-10-1
+    meta:
+      chartId: 10
+      height: 146
+      sliceName: jateng_table_votes_by_cab
+      uuid: f0d0003f-817a-4523-88c8-d78b4c363b97
+      width: 7
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-_H_QQXtgrOjV0Y-dwQCma
+    type: CHART
+  CHART-explore-6-1:
+    children: []
+    id: CHART-explore-6-1
+    meta:
+      chartId: 6
+      height: 20
+      sliceName: jateng_tps_finish
+      uuid: 877e3b3e-c820-48f6-97de-d3b8c25d97a3
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-iAxMiHn-ywQrc7T8VzEjq
+    type: CHART
+  CHART-explore-7-1:
+    children: []
+    id: CHART-explore-7-1
+    meta:
+      chartId: 7
+      height: 20
+      sliceName: jateng_tps_pending
+      uuid: db4aff06-3d29-4cb3-9835-87de337abb91
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-iAxMiHn-ywQrc7T8VzEjq
+    type: CHART
+  CHART-explore-8-1:
+    children: []
+    id: CHART-explore-8-1
+    meta:
+      chartId: 8
+      height: 20
+      sliceName: jateng_tps_all
+      uuid: 98488210-40da-4d8a-a01c-83c27d6b2979
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-iAxMiHn-ywQrc7T8VzEjq
+    type: CHART
+  CHART-explore-9-1:
+    children: []
+    id: CHART-explore-9-1
+    meta:
+      chartId: 9
+      height: 63
+      sliceName: jateng_sum_votes_by_candidate
+      uuid: 2036da69-5bb0-4858-8719-3c0dbdb2faef
+      width: 5
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-_H_QQXtgrOjV0Y-dwQCma
+    type: CHART
+  DASHBOARD_VERSION_KEY: v2
+  GRID_ID:
+    children:
+    - ROW-iAxMiHn-ywQrc7T8VzEjq
+    - ROW-_H_QQXtgrOjV0Y-dwQCma
+    id: GRID_ID
+    parents:
+    - ROOT_ID
+    type: GRID
+  HEADER_ID:
+    id: HEADER_ID
+    meta:
+      text: Pilkada Jateng
+    type: HEADER
+  ROOT_ID:
+    children:
+    - GRID_ID
+    id: ROOT_ID
+    type: ROOT
+  ROW-_H_QQXtgrOjV0Y-dwQCma:
+    children:
+    - CHART-explore-9-1
+    - CHART-explore-10-1
+    id: ROW-_H_QQXtgrOjV0Y-dwQCma
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: ROW
+  ROW-iAxMiHn-ywQrc7T8VzEjq:
+    children:
+    - CHART-explore-6-1
+    - CHART-explore-7-1
+    - CHART-explore-8-1
+    id: ROW-iAxMiHn-ywQrc7T8VzEjq
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: ROW
+metadata:
+  chart_configuration:
+    '9':
+      id: 9
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 6
+        - 7
+        - 8
+        - 10
+    '10':
+      id: 10
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 6
+        - 7
+        - 8
+        - 9
+  global_chart_configuration:
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    chartsInScope:
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+  timed_refresh_immune_slices: []
+  expanded_slices: {}
+  refresh_frequency: 0
+  color_scheme: ''
+  label_colors:
+    '1000023': '#3333ff'
+    '1000024': '#000000'
+    '1000025': '#ff944d'
+    '1000030': '#ff1a1a'
+  cross_filters_enabled: true
+  default_filters: '{}'
+  color_scheme_domain: []
+  shared_label_colors: {}
+version: 1.0.0
