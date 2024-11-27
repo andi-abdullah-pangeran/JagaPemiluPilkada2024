@@ -1,5 +1,5 @@
 
-run-containers:
+start-containers:
 	docker-compose -f ./deploy/docker/docker-compose.yaml up -d
 
 stop-containers:
@@ -10,3 +10,6 @@ build-superset-image:
  		-f ./deploy/docker/superset/image/Dockerfile \
  		--tag "superset:0.0.1" \
  		./deploy/docker/superset/image/.
+
+ambil-hasil:
+	benthos -c scripts/get_hasil_tps.yaml

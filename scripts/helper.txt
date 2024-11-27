@@ -1,0 +1,12 @@
+drop table f_raw_results;
+drop table f_raw_candidate_results;
+drop view mv_f_raw_candidate_results;
+
+drop table f_aggregate_candidate_results;
+drop view mv_aggregate_candidate_results;
+
+delete from f_raw_results where location_id != '';
+delete from f_raw_candidate_results where location_id != '';
+delete from f_aggregate_candidate_results where nama_prov != '';
+
+select result.ts AS timestamp from f_raw_candidate_results where result.ts != '2024-11-26 09:54:44';

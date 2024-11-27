@@ -1,0 +1,170 @@
+## this using benthos https://www.benthos.dev/docs/about
+
+logger:
+  level: INFO
+  format: json
+  add_timestamp: true
+  static_fields:
+    '@service': crawler
+
+input:
+  resource: ambil_tps
+
+input_resources:
+  - label: ambil_tps
+    file:
+      paths:
+        - master/sample_tps/*
+      codec: lines
+
+processor_resources:
+  - label: query_clickhouse_db
+    sql_raw:
+      driver: "clickhouse"
+      dsn: "clickhouse://default@127.0.0.1:9000/default"
+      query: '${!metadata("ddl_query")}'
+      args_mapping: root = this.query_parameter
+      unsafe_dynamic_query: true
+      conn_max_idle_time: "20s"
+      conn_max_life_time: "60s"
+      conn_max_idle: 2
+      conn_max_open: 20
+  - label: ambil_suara
+    branch:
+      request_map: |-
+        root = ""
+      processors:
+        - http:
+            url: ${!meta("url_link")}
+            verb: GET
+      result_map: |-
+        root.result = this
+        root.json_url = @.url_link        
+
+  - label: insert_to_analytics
+    branch:
+      request_map: |
+        root.query_parameter = [
+          this.location_id,
+          this.location_partition,
+          this.location_name,
+          this.json_url,
+          this.nama_prov,
+          this.nama_cab,
+          this.nama_kec,
+          this.nama_kel,
+          this.nama_tps,
+          this.result.format_json(no_indent: true).string(),
+          this.tingkat,   
+          this.hasil.suara_sah,
+          this.hasil.suara_tidak_sah,
+          this.hasil.suara_total,
+          this.hasil_candidates,
+          this.verify_hasil,
+          this.verify_hasil_candidates,
+          this.verify_control
+        ]
+
+        meta ddl_query = """
+        INSERT INTO f_raw_results (
+          recording_time,
+          location_id, 
+          location_partition,
+          location_name,
+          json_url,
+          nama_prov,
+          nama_cab,
+          nama_kec,
+          nama_kel,
+          nama_tps,
+          result,
+          tingkat,
+          suara_sah,
+          suara_tidak_sah,
+          suara_total,
+          hasil_candidates,
+          verify_hasil,
+          verify_hasil_candidates,
+          verify_control
+        ) 
+          SETTINGS async_insert=1, wait_for_async_insert=1, wait_for_async_insert_timeout=120         
+          VALUES 
+        (
+          now(), ?, ?, ?, ?,
+          ?, ?, ?, ?, ?,
+          ?, ?, ?, ?, ?, 
+          ?, ?, ?, ?
+        );
+        """
+
+        root.ddl_query = deleted()
+      processors:
+        - log:
+            level: DEBUG
+            message: "debug query"
+            fields_mapping: |
+              root.query_parameter = this.query_parameter
+              root.ddl_query = @.ddl_query
+        - resource: query_clickhouse_db
+      result_map: |
+        root.insert_result = if this.length() > 0 {
+          this
+        } else {
+          []
+        }         
+
+pipeline:
+  processors:
+    - mapping: |-
+        meta url_link = "https://sirekappilkada-obj-data.kpu.go.id/pilkada/hhcw/pkwkp/" + this.kode_prov + "/" + this.kode_cab + "/" + this.kode_kec + "/" + this.kode_kel + "/" + this.kode_tps + ".json"
+        root = this
+        root.location_id = this.kode_prov + "/" + this.kode_cab + "/" + this.kode_kec + "/" + this.kode_kel + "/" + this.kode_tps
+        root.location_partition = this.kode_prov + "/" + this.kode_cab + "/" + this.kode_kec + "/" + this.kode_kel 
+        root.location_name = this.nama_prov + "/" + this.nama_cab + "/" + this.nama_kec + "/" + this.nama_kel + "/" + this.nama_tps
+    - resource: ambil_suara
+    - mapping: |
+        root = this
+        
+        let v_administrasi = this.json_path("$.result.tungsura.administrasi")
+        let v_chart = this.json_path("$.result.tungsura.chart")
+        
+        root.hasil = if $v_administrasi != null {
+          {
+            "suara_sah": $v_administrasi.suara_sah,
+            "suara_tidak_sah": $v_administrasi.suara_tidak_sah,
+            "suara_total": $v_administrasi.suara_total,
+          }
+        } else {
+          {
+            "suara_sah": 0,
+            "suara_tidak_sah": 0,
+            "suara_total": 0,
+          }
+        }
+        
+        root.hasil_candidates = if $v_chart != null {
+          $v_chart.without("null")
+        } else {
+          null
+        }
+
+    - mapping: |
+        root = this
+        
+        root.verify_hasil = (this.hasil.suara_sah + this.hasil.suara_tidak_sah) == this.hasil.suara_total
+        root.verify_hasil_candidates = if this.hasil_candidates != null {
+          this.hasil_candidates.key_values().map_each(v -> v.value).sum() == this.hasil.suara_sah
+        } else {
+          0
+        }
+        
+        root.verify_control = this.hasil.suara_sah < 500
+
+    - resource: insert_to_analytics
+
+output:
+  broker:
+    pattern: fan_out
+    outputs:
+      - stdout:
+          codec: lines

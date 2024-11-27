@@ -1,0 +1,169 @@
+dashboard_title: Pilkada DKI Jakarta
+description: null
+css: ''
+slug: null
+certified_by: ''
+certification_details: ''
+published: false
+uuid: dd336400-fd1a-473e-b974-761751a7a44a
+position:
+  CHART-explore-1-1:
+    children: []
+    id: CHART-explore-1-1
+    meta:
+      chartId: 1
+      height: 56
+      sliceName: sum_votes_by_candidate
+      uuid: bd0fb393-79fa-439e-a9eb-bb7e08cc940c
+      width: 5
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-8vOP6V-F3MYqrJ_NKp29m
+    type: CHART
+  CHART-explore-2-1:
+    children: []
+    id: CHART-explore-2-1
+    meta:
+      chartId: 2
+      height: 56
+      sliceName: table_votes_by_cab
+      uuid: cbd6e759-6953-4cd1-978a-95448577b801
+      width: 7
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-8vOP6V-F3MYqrJ_NKp29m
+    type: CHART
+  CHART-explore-3-1:
+    children: []
+    id: CHART-explore-3-1
+    meta:
+      chartId: 3
+      height: 20
+      sliceName: tps_pending
+      uuid: 6a8b4aa3-51da-4bb9-abbb-5a4ab24a09c0
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-iAxMiHn-ywQrc7T8VzEjq
+    type: CHART
+  CHART-explore-4-1:
+    children: []
+    id: CHART-explore-4-1
+    meta:
+      chartId: 4
+      height: 20
+      sliceName: tps_finish
+      uuid: d23f2c51-15b1-428f-aa7f-e00a252faafa
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-iAxMiHn-ywQrc7T8VzEjq
+    type: CHART
+  CHART-explore-5-1:
+    children: []
+    id: CHART-explore-5-1
+    meta:
+      chartId: 5
+      height: 20
+      sliceName: all_tps
+      uuid: 9a3202fa-ae58-4d61-900d-bdfa6bc5514c
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-X_dIl29eNA0V3d53mGV1c
+    type: CHART
+  DASHBOARD_VERSION_KEY: v2
+  GRID_ID:
+    children:
+    - ROW-iAxMiHn-ywQrc7T8VzEjq
+    - ROW-8vOP6V-F3MYqrJ_NKp29m
+    id: GRID_ID
+    parents:
+    - ROOT_ID
+    type: GRID
+  HEADER_ID:
+    id: HEADER_ID
+    meta:
+      text: Pilkada DKI Jakarta
+    type: HEADER
+  ROOT_ID:
+    children:
+    - GRID_ID
+    id: ROOT_ID
+    type: ROOT
+  ROW-8vOP6V-F3MYqrJ_NKp29m:
+    children:
+    - CHART-explore-1-1
+    - CHART-explore-2-1
+    id: ROW-8vOP6V-F3MYqrJ_NKp29m
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: ROW
+  ROW-iAxMiHn-ywQrc7T8VzEjq:
+    children:
+    - CHART-explore-4-1
+    - CHART-explore-3-1
+    - CHART-explore-5-1
+    id: ROW-iAxMiHn-ywQrc7T8VzEjq
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: ROW
+metadata:
+  chart_configuration:
+    '1':
+      id: 1
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 2
+        - 3
+        - 4
+        - 5
+    '2':
+      id: 2
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 1
+        - 3
+        - 4
+        - 5
+  global_chart_configuration:
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    chartsInScope:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+  timed_refresh_immune_slices: []
+  expanded_slices: {}
+  refresh_frequency: 0
+  color_scheme: ''
+  label_colors:
+    '1000023': '#3333ff'
+    '1000024': '#000000'
+    '1000025': '#ff944d'
+  cross_filters_enabled: true
+  default_filters: '{}'
+  color_scheme_domain: []
+  shared_label_colors:
+    '1000023': '#3333ff'
+    '1000024': '#000000'
+    '1000025': '#ff944d'
+version: 1.0.0

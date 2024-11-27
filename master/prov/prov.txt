@@ -1,0 +1,1 @@
+{"kode_prov":"33","nama_prov":"JAWA TENGAH","tingkat":1}

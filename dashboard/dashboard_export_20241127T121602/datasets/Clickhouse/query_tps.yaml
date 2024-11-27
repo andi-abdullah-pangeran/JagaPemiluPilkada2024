@@ -1,0 +1,70 @@
+table_name: query_tps
+main_dttm_col: null
+description: null
+default_endpoint: null
+offset: 0
+cache_timeout: null
+catalog: null
+schema: default
+sql: "SELECT\n    countIf(suara_sah = 0) AS without_suara,\n    countIf(suara_sah\
+  \ != 0) AS with_suara,\n    count(*) AS total_count\nFROM\n(\n    SELECT DISTINCT\n\
+  \        location_id,\n        argMax(suara_sah, recording_time) AS suara_sah\n\
+  \    FROM f_raw_results\n    GROUP BY location_id\n)"
+params: null
+template_params: null
+filter_select_enabled: true
+fetch_values_predicate: null
+extra: null
+normalize_columns: false
+always_filter_main_dttm: false
+uuid: ce25c92b-bd44-43e0-b523-51c08871528a
+metrics:
+- metric_name: count
+  verbose_name: COUNT(*)
+  metric_type: count
+  expression: COUNT(*)
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+columns:
+- column_name: without_suara
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: UInt64
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  extra: {}
+- column_name: with_suara
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: UInt64
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  extra: {}
+- column_name: total_count
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: UInt64
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  extra: {}
+version: 1.0.0
+database_uuid: b7054a31-cd10-4909-9552-c52fe5d9f14b
